@@ -14,10 +14,10 @@ steps:
   displayName: 'Build immutable image'
   inputs:
     ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
-    managedImageName: jjimage1
+    managedImageName: jjpackerlx
     location: westeurope
-    storageAccountName: jjdevv2fileshare
-    azureResourceGroup: jjdevmanagement
+    storageAccountName: jjpackerstorage
+    azureResourceGroup: jjpacker-rg
     baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
     packagePath: deploy
     deployScriptPath: deploy.sh
