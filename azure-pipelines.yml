@@ -12,6 +12,7 @@ pool:
 steps:
 - task: PackerBuild@1
   displayName: 'Build immutable image'
+  enabled: false
   inputs:
     ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
     managedImageName: jjvmimagelx
@@ -32,5 +33,5 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'template/deploy.json'
     csmParametersFile: 'template/deploy.parameters.json'
-    overrideParameters: '-adminUsername Azure-1234512345'
+    overrideParameters: '-adminPassword Azure-1234512345'
     deploymentMode: 'Incremental'
