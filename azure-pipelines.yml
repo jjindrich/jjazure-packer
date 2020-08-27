@@ -19,5 +19,5 @@ steps:
     storageAccountName: jjdevv2fileshare
     azureResourceGroup: jjdevmanagement
     baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
-    packagePath: d
-    deployScriptPath: d
+    packagePath: deploy
+    deployScriptPath: deploy.sh
