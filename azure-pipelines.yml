@@ -14,10 +14,23 @@ steps:
   displayName: 'Build immutable image'
   inputs:
     ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
-    managedImageName: jjpackerlx
+    managedImageName: jjvmimagelx
     location: westeurope
     storageAccountName: jjpackerstorage
     azureResourceGroup: jjpacker-rg
     baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
-    packagePath: deploy
+    packagePath: build
     deployScriptPath: deploy.sh
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+    subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'jjdevv2vmapplx-rg'
+    location: 'West Europe'
+    templateLocation: 'Linked artifact'
+    csmFile: 'template/deploy.json'
+    csmParametersFile: 'template/deploy.parameters.json'
+    overrideParameters: '-adminUsername Azure-1234512345'
+    deploymentMode: 'Incremental'

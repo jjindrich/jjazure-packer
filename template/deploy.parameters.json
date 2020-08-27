@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachineName": {
+            "value": "jjdevv2vmapplx"
+        },
+        "imageReference": {
+            "value": "/subscriptions/82fb79bf-ee69-4a57-a76c-26153e544afe/resourceGroups/jjpacker-rg/providers/Microsoft.Compute/images/jjpackerlx"
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "JJDevV2-Infra"
+        },
+        "virtualNetworkName": {
+            "value": "JJDevV2NetworkApp"
+        },
+        "virtualNetworkSubnetName": {
+            "value": "DmzApp"
+        },
+        "adminPassword": {
+            "value": "" // TODO: Fill in parameter value
+        }
+    }
+}

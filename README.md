@@ -16,8 +16,20 @@ az storage account create -n jjpackerstorage -g jjpacker-rg -l westeurope --sku 
 
 Images will be stored in this resource group.
 
+## Run ARM deployment
+
+You can run this commands to deploy VM (fill-in password in template)
+
+```powershell
+$rg="jjdevv2vmapplx-rg"
+az group create -n $rg -l westeurope
+az deployment group create -g $rg --template-file deploy.json --parameters deploy.parameters.json
+```
+
 ## DevOps pipeline
 
-Check YAML pipeline definition
+Check YAML pipeline definition using tasks
 
-- using [Build Machine Image (Packer) task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/packer-build?view=azure-devops)
+- [Build Machine Image (Packer) task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/packer-build?view=azure-devops) in packer folder
+- [Azure Resource Group Deployment task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-resource-group-deployment?view=azure-devops) in template folder
+- 
