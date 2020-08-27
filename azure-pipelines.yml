@@ -19,7 +19,7 @@ steps:
     storageAccountName: jjpackerstorage
     azureResourceGroup: jjpacker-rg
     baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
-    packagePath: build
+    packagePath: packer
     deployScriptPath: deploy.sh
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
