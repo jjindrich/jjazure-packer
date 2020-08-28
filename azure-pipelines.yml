@@ -22,11 +22,6 @@ steps:
     packagePath: packer
     deployScriptPath: deploy.sh
 
-- task: AzSKARMTemplateChecker@4
-  inputs:
-    ARMTemplateFilePath: 'template/deploy.json'
-    ARMTemplateParameterFilePath: 'template/deploy.parameters.json'
-
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
