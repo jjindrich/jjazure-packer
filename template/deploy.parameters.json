@@ -18,7 +18,7 @@
             "value": "DmzApp"
         },
         "adminPassword": {
-            "value": "" // TODO: Fill in parameter value
+            "value": "MOJE-Heslo-9876543210"
         }
     }
 }
