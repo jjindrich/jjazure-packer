@@ -35,7 +35,7 @@ stages:
       - group: jjpacker-DEV
     jobs:
       - deployment: DeployDEV
-        displayName: Deploy to DEV
+        displayName: Deploy ARM template
         environment: 'jjpacker-DEV'
         strategy:
           runOnce:
