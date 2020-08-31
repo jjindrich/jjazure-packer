@@ -15,6 +15,7 @@ stages:
       steps:
       - task: PackerBuild@1
         displayName: 'Build immutable image'
+        enabled: false
         inputs:
           ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
           managedImageName: 'jjvmimagelx-$(Build.BuildNumber)'
@@ -24,7 +25,10 @@ stages:
           baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
           packagePath: packer
           deployScriptPath: deploy.sh
-
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish ARM template to drop'
+        inputs:
+          PathtoPublish: 'template'
   - stage: DeployDEV
     displayName: Deploy to DEV
     dependsOn: Build
@@ -40,7 +44,8 @@ stages:
               steps: 
               - task: DownloadPipelineArtifact@2
                 inputs:
-                  path: $(Pipeline.Workspace)
+                  artifact: drop
+                  path: $(Pipeline.Workspace)/drop
               - task: Bash@3
                 inputs:
                   targetType: 'inline'
