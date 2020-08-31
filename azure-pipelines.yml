@@ -29,7 +29,7 @@ stages:
     displayName: Deploy to DEV
     dependsOn: Build
     variables:
-      - group: jjpacker-TEST
+      - group: jjpacker-DEV
     jobs:
       - deployment: DeployDEV
         displayName: Deploy to DEV
