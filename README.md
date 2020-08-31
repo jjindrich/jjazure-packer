@@ -1,6 +1,12 @@
 # jjazure-packer
 
-This repository describe how to bake custom image with your application and run this application.
+This repository describe how to bake custom image with your application and run this application. Application is simple webpage.
+For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
+
+Following articles can help you
+
+- [How to use Packer to create Linux virtual machine images](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer)
+- [Azure virtual machine scale set from a Packer custom image by using Terraform](https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-scaleset-network-disks-using-packer-hcl)
 
 ## Prepare for DevOps
 
