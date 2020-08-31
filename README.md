@@ -52,5 +52,6 @@ Check pipeline definition [azure-pipelines.yaml](azure-pipelines.yaml)
 
 I'm planning to add:
 
-1. Use image in VMSS - first stage deployment to VM, next stage to VMSS
-2. Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
+1. image versioning - build image with version and use this version for deployment
+2. Use image in VMSS - first stage deployment to VM, next stage to VMSS
+3. Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
