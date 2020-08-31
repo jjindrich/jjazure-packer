@@ -8,14 +8,13 @@ pool:
 
 stages:
   - stage: Build
-    displayName: Build artefacts
+    displayName: Build
     jobs:
     - job: ImagePacker
       displayName: Image builder
       steps:
       - task: PackerBuild@1
         displayName: 'Build immutable image'
-        enabled: false
         inputs:
           ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
           managedImageName: 'jjvmimagelx-$(Build.BuildNumber)'
