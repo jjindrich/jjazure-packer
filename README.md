@@ -49,6 +49,11 @@ Check YAML pipeline definition using tasks
 
 Check pipeline definition [azure-pipelines.yaml](azure-pipelines.yaml)
 
+Create new Azure DevOps pipeline
+
+- use pipeline definition
+- create new Variable group in Library section with name jjpacker-DEV and add variable adminPassword
+
 # TODOs
 
 I'm planning to add:

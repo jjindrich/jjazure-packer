@@ -28,14 +28,19 @@ stages:
   - stage: DeployDEV
     displayName: Deploy to DEV
     dependsOn: Build
+    variables:
+      - group: jjpacker-TEST
     jobs:
       - deployment: DeployDEV
         displayName: Deploy to DEV
-        environment: 'DEV'
+        environment: 'jjpacker-DEV'
         strategy:
           runOnce:
             deploy:
-              steps:     
+              steps: 
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  path: $(Pipeline.Workspace)
               - task: AzureResourceManagerTemplateDeployment@3
                 inputs:
                   deploymentScope: 'Resource Group'
