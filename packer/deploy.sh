@@ -6,4 +6,5 @@ apt-get upgrade -y
 apt-get -y install apache2
 
 echo "JJ config web server"
+ls
 cp app/index.html /var/www/html/index.html
