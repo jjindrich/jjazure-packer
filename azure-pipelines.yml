@@ -50,6 +50,7 @@ stages:
                 inputs:
                   targetType: 'inline'
                   script: 'ls'
+                  workingDirectory: $(Pipeline.Workspace)
               - task: AzureResourceManagerTemplateDeployment@3
                 inputs:
                   deploymentScope: 'Resource Group'
@@ -59,7 +60,7 @@ stages:
                   resourceGroupName: 'jjdevv2vmapplx-rg'
                   location: 'West Europe'
                   templateLocation: 'Linked artifact'
-                  csmFile: 'template/deploy.json'
-                  csmParametersFile: 'template/deploy.parameters.json'
+                  csmFile: '$(Pipeline.Workspace)/drop/template/deploy.json'
+                  csmParametersFile: '$(Pipeline.Workspace)/drop/template/deploy.parameters.json'
                   overrideParameters: '-adminPassword $(adminPassword) -imageName jjvmimagelx-$(Build.BuildNumber)'
-                  deploymentMode: 'Incremental'
+                  deploymentMode: 'Incremental'                  
