@@ -46,6 +46,7 @@ stages:
             deploy:
               steps:
               - task: AzureResourceManagerTemplateDeployment@3
+                displayName: Delete existing VM in resource group
                 inputs:
                   deploymentScope: 'Resource Group'
                   azureResourceManagerConnection: $(subscription)
@@ -53,6 +54,7 @@ stages:
                   action: 'DeleteRG'
                   resourceGroupName: 'jjdevv2vmapplx-rg'
               - task: AzureResourceManagerTemplateDeployment@3
+                displayName: Deploy new VM in resource group
                 inputs:
                   deploymentScope: 'Resource Group'
                   azureResourceManagerConnection: $(subscription)
