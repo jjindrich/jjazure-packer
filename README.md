@@ -6,7 +6,14 @@ For image baking using Packer Azure DevOps task. For deployment using Azure Reso
 Following articles can help you
 
 - [How to use Packer to create Linux virtual machine images](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer)
+- [Implement continuous deployment of your app to an Azure Virtual Machine Scale Set](https://docs.microsoft.com/en-us/azure/devops/pipelines/apps/cd/azure/deploy-azure-scaleset?view=azure-devops)
 - [Azure virtual machine scale set from a Packer custom image by using Terraform](https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-scaleset-network-disks-using-packer-hcl)
+
+Repository structure
+
+- folder [packer](packer) - deployment script for Packer including application code in app subfolder
+- folder [template](template) - ARM script for deployment
+- pipeline definition in [azure-pipelines.yaml](azure-pipelines.yaml)
 
 ## Prepare for DevOps
 
@@ -39,9 +46,11 @@ Check YAML pipeline definition using tasks
 - [Build Machine Image (Packer) task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/packer-build?view=azure-devops) in packer folder
 - [Azure Resource Group Deployment task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-resource-group-deployment?view=azure-devops) in template folder
 
+Check pipeline definition [azure-pipelines.yaml](azure-pipelines.yaml)
+
 # TODOs
 
 I'm planning to add:
 
-1. Use image in VMSS
+1. Use image in VMSS - first stage deployment to VM, next stage to VMSS
 2. Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
