@@ -30,7 +30,7 @@ az storage account create -n jjpackerstorage -g jjpacker-rg -l westeurope --sku 
 
 Images will be stored in this resource group.
 
-## Run ARM deployment
+## Test ARM deployment
 
 You can run this commands to deploy VM (fill-in password in template)
 

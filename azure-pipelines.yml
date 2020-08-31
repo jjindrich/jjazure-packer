@@ -6,6 +6,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
+  subscription: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+
 stages:
   - stage: Build
     displayName: Build
@@ -16,7 +20,7 @@ stages:
       - task: PackerBuild@1
         displayName: 'Build immutable image'
         inputs:
-          ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+          ConnectedServiceName: $(subscription)
           managedImageName: 'jjvmimagelx-$(Build.BuildNumber)'
           location: westeurope
           storageAccountName: jjpackerstorage
@@ -40,12 +44,19 @@ stages:
         strategy:
           runOnce:
             deploy:
-              steps: 
+              steps:
               - task: AzureResourceManagerTemplateDeployment@3
                 inputs:
                   deploymentScope: 'Resource Group'
-                  azureResourceManagerConnection: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
-                  subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
+                  azureResourceManagerConnection: $(subscription)
+                  subscriptionId: $(subscriptionId)
+                  action: 'DeleteRG'
+                  resourceGroupName: 'jjdevv2vmapplx-rg'
+              - task: AzureResourceManagerTemplateDeployment@3
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: $(subscription)
+                  subscriptionId: $(subscriptionId)
                   action: 'Create Or Update Resource Group'
                   resourceGroupName: 'jjdevv2vmapplx-rg'
                   location: 'West Europe'
