@@ -11,7 +11,8 @@ Following articles can help you
 
 Repository structure
 
-- folder [packer](packer) - deployment script for Packer including application code in app subfolder
+- folder [packer](packer) - deployment script for Packer
+- folder [app](packer/app) - prepared application code for Packer (typically builded in CI part)
 - folder [template](template) - ARM script for deployment
 - pipeline definition in [azure-pipelines.yaml](azure-pipelines.yaml)
 

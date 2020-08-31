@@ -8,7 +8,10 @@
         "adminPassword": {
             "type": "secureString"
         },
-        "imageReference":{
+        "imageResourceGroup":{
+            "type": "string"
+        },
+        "imageName":{
             "type": "string"
         },
         "virtualNetworkResourceGroup": {
@@ -22,7 +25,8 @@
         }
     },
     "variables": {
-        "virtualNetworkId": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+        "virtualNetworkId": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "imageReference": "[resourceId(parameters('imageResourceGroup'), 'Microsoft.Compute/images', parameters('imageName'))]"
     },
     "resources": [
         {
@@ -65,7 +69,7 @@
                         }
                     },
                     "imageReference": {
-                        "id": "[parameters('imageReference')]"
+                        "id": "[variables('imageReference')]"
                     }
                 },
                 "networkProfile": {

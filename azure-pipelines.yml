@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+name: $(date:yyyyMMdd)$(rev:.r)
 
 trigger:
 - master
@@ -9,29 +6,46 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: PackerBuild@1
-  displayName: 'Build immutable image'
-  inputs:
-    ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
-    managedImageName: jjvmimagelx
-    location: westeurope
-    storageAccountName: jjpackerstorage
-    azureResourceGroup: jjpacker-rg
-    baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
-    packagePath: packer
-    deployScriptPath: deploy.sh
+stages:
+  - stage: Build
+    displayName: Build artefacts
+    jobs:
+    - job: ImagePacker
+      displayName: Image builder
+      steps:
+      - task: PackerBuild@1
+        displayName: 'Build immutable image'
+        inputs:
+          ConnectedServiceName: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+          managedImageName: 'jjvmimagelx:$(Build.BuildNumber)'
+          location: westeurope
+          storageAccountName: jjpackerstorage
+          azureResourceGroup: jjpacker-rg
+          baseImage: 'Canonical:UbuntuServer:18.04-LTS:linux'
+          packagePath: packer
+          deployScriptPath: deploy.sh
 
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
-    subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'jjdevv2vmapplx-rg'
-    location: 'West Europe'
-    templateLocation: 'Linked artifact'
-    csmFile: 'template/deploy.json'
-    csmParametersFile: 'template/deploy.parameters.json'
-    overrideParameters: '-adminPassword Azure-1234512345'
-    deploymentMode: 'Incremental'
+  - stage: DeployDEV
+    displayName: Deploy to DEV
+    dependsOn: Build
+    jobs:
+      - deployment: DeployDEV
+        displayName: Deploy to DEV
+        environment: 'DEV'
+        strategy:
+          runOnce:
+            deploy:
+              steps:     
+              - task: AzureResourceManagerTemplateDeployment@3
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+                  subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: 'jjdevv2vmapplx-rg'
+                  location: 'West Europe'
+                  templateLocation: 'Linked artifact'
+                  csmFile: 'template/deploy.json'
+                  csmParametersFile: 'template/deploy.parameters.json'
+                  overrideParameters: '-adminPassword $(adminPassword) -imageName jjvmimagelx:$(Build.BuildNumber)'
+                  deploymentMode: 'Incremental'

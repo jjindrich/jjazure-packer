@@ -5,8 +5,11 @@
         "virtualMachineName": {
             "value": "jjdevv2vmapplx"
         },
-        "imageReference": {
-            "value": "/subscriptions/82fb79bf-ee69-4a57-a76c-26153e544afe/resourceGroups/jjpacker-rg/providers/Microsoft.Compute/images/jjvmimagelx"
+        "imageResourceGroup": {
+            "value": "jjpacker-rg"
+        },
+        "imageName": {
+            "value": "jjvmimagelx"
         },
         "virtualNetworkResourceGroup": {
             "value": "JJDevV2-Infra"
