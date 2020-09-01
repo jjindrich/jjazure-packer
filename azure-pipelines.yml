@@ -53,6 +53,7 @@ stages:
                   subscriptionId: $(subscriptionId)
                   action: 'DeleteRG'
                   resourceGroupName: 'jjdevv2vmapplx-rg'
+                continueOnError: true
               - task: AzureResourceManagerTemplateDeployment@3
                 displayName: Deploy new VM in resource group
                 inputs:
