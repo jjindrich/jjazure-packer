@@ -15,7 +15,7 @@ stages:
     displayName: Build
     jobs:
     - job: ImagePacker
-      displayName: Image builder
+      displayName: Build image
       steps:
       - task: PackerBuild@1
         displayName: 'Build immutable image'
@@ -63,7 +63,7 @@ stages:
                   resourceGroupName: 'jjdevv2vmapplx-rg'
                   location: 'West Europe'
                   templateLocation: 'Linked artifact'
-                  csmFile: '$(Pipeline.Workspace)/drop/deploy.json'
-                  csmParametersFile: '$(Pipeline.Workspace)/drop/deploy.parameters.json'
+                  csmFile: '$(Pipeline.Workspace)/drop/deploy-vm.json'
+                  csmParametersFile: '$(Pipeline.Workspace)/drop/deploy-vm.parameters.json'
                   overrideParameters: '-adminPassword $(adminPassword) -imageName jjvmimagelx-$(Build.BuildNumber)'
                   deploymentMode: 'Incremental'                  
