@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmssName": {
+            "value": "jjdevv2vmapplx"
+        },
+        "imageResourceGroup": {
+            "value": "jjpacker-rg"
+        },
+        "imageName": {
+            "value": "jjvmimagelx"
+        },
+        "instanceCount":{
+            "value": 2
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "JJDevV2-Infra"
+        },
+        "virtualNetworkName": {
+            "value": "JJDevV2NetworkApp"
+        },
+        "virtualNetworkSubnetName": {
+            "value": "DmzApp"
+        },
+        "adminPassword": {
+            "value": "MOJE-Heslo-9876543210"
+        }
+    }
+}

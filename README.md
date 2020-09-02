@@ -3,6 +3,11 @@
 This repository describe how to bake custom image with your application and run this application. Application is simple webpage.
 For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
 
+Application deployed into two environments
+
+- DEV - deleted and created virtual machine (VM) based on image with private ip
+- TEST - created and updated virtual machine scaleset (VMSS) based on image with public IP (check NSG on your network)
+
 Following articles can help you
 
 - [How to use Packer to create Linux virtual machine images](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer)
@@ -15,6 +20,10 @@ Repository structure
 - folder [app](packer/app) - prepared application code for Packer (typically builded in CI part)
 - folder [template](template) - ARM script for deployment
 - pipeline definition in [azure-pipelines.yaml](azure-pipelines.yaml)
+
+*Future improvements*
+
+- Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
 
 ## Prepare for DevOps
 
@@ -30,7 +39,9 @@ az storage account create -n jjpackerstorage -g jjpacker-rg -l westeurope --sku 
 
 Images will be stored in this resource group.
 
-## Test ARM deployment
+## Check and test ARM deployment (optional)
+
+There are two templates - deploy VM and VMSS.
 
 You can run this commands to deploy VM (fill-in password in template)
 
@@ -38,6 +49,14 @@ You can run this commands to deploy VM (fill-in password in template)
 $rg="jjdevv2vmapplx-rg"
 az group create -n $rg -l westeurope
 az deployment group create -g $rg --template-file deploy.json --parameters deploy.parameters.json
+```
+
+You can run this commands to deploy VMSS (fill-in password in template)
+
+```powershell
+$rg="jjdevv2vmssapplx-rg"
+az group create -n $rg -l westeurope
+az deployment group create -g $rg --template-file deploy-vmss.json --parameters deploy-vmss.parameters.json
 ```
 
 ## DevOps pipeline
@@ -53,10 +72,5 @@ Create new Azure DevOps pipeline
 
 - use pipeline definition
 - create new Variable group in Library section with name jjpacker-DEV and add variable adminPassword
+- create new Variable group in Library section with name jjpacker-TEST and add variable adminPassword
 
-# TODOs
-
-I'm planning to add:
-
-- Use image in VMSS - first stage deployment to VM, next stage to VMSS
-- Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html

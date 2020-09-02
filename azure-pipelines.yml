@@ -32,6 +32,7 @@ stages:
         displayName: 'Publish ARM template to drop'
         inputs:
           PathtoPublish: 'template'
+
   - stage: DeployDEV
     displayName: Deploy to DEV
     dependsOn: Build
@@ -67,4 +68,32 @@ stages:
                   csmFile: '$(Pipeline.Workspace)/drop/deploy-vm.json'
                   csmParametersFile: '$(Pipeline.Workspace)/drop/deploy-vm.parameters.json'
                   overrideParameters: '-adminPassword $(adminPassword) -imageName jjvmimagelx-$(Build.BuildNumber)'
-                  deploymentMode: 'Incremental'                  
+                  deploymentMode: 'Incremental'
+
+  - stage: DeployTEST
+    displayName: Deploy to TEST
+    dependsOn: Build
+    variables:
+      - group: jjpacker-TEST
+    jobs:
+      - deployment: DeployTEST
+        displayName: Deploy ARM template
+        environment: 'jjpacker-TEST'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: AzureResourceManagerTemplateDeployment@3
+                displayName: Deploy new VMSS in resource group
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: $(subscription)
+                  subscriptionId: $(subscriptionId)
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: 'jjdevv2vmssapplx-rg'
+                  location: 'West Europe'
+                  templateLocation: 'Linked artifact'
+                  csmFile: '$(Pipeline.Workspace)/drop/deploy-vmss.json'
+                  csmParametersFile: '$(Pipeline.Workspace)/drop/deploy-vmss.parameters.json'
+                  overrideParameters: '-adminPassword $(adminPassword) -imageName jjvmimagelx-$(Build.BuildNumber)'
+                  deploymentMode: 'Incremental'
