@@ -75,3 +75,4 @@ Create new Azure DevOps pipeline
 - create new Variable group in Library section with name jjpacker-TEST and add variable adminPassword
 
 Run pipeline. You can test new deployment - change application source [index.html](packer/app/index.html) and commit changes. It will be deployed automatically.
+![DevOps pipeline](media/devops.png)
