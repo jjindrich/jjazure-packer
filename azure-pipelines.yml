@@ -72,7 +72,7 @@ stages:
 
   - stage: DeployTEST
     displayName: Deploy to TEST
-    dependsOn: Build
+    dependsOn: DeployDEV
     variables:
       - group: jjpacker-TEST
     jobs:
