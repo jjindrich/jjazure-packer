@@ -1,7 +1,14 @@
 # jjazure-packer
 
-This repository describe how to bake custom image with your application and run this application. Application is simple webpage.
+This repository describes how to bake custom image with your application and run this application. Application is simple webpage, source code is typically prepared in CI build process.
 For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
+
+Repository structure
+
+- folder [packer](packer) - deployment script for Packer
+- folder [app](packer/app) - prepared application code for Packer (typically builded in CI part)
+- folder [template](template) - ARM script for deployment
+- pipeline definition in [azure-pipelines.yaml](azure-pipelines.yaml)
 
 Application deployed into two environments
 
@@ -14,18 +21,11 @@ Following articles can help you
 - [Implement continuous deployment of your app to an Azure Virtual Machine Scale Set](https://docs.microsoft.com/en-us/azure/devops/pipelines/apps/cd/azure/deploy-azure-scaleset?view=azure-devops)
 - [Azure virtual machine scale set from a Packer custom image by using Terraform](https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-scaleset-network-disks-using-packer-hcl)
 
-Repository structure
-
-- folder [packer](packer) - deployment script for Packer
-- folder [app](packer/app) - prepared application code for Packer (typically builded in CI part)
-- folder [template](template) - ARM script for deployment
-- pipeline definition in [azure-pipelines.yaml](azure-pipelines.yaml)
-
-*Future improvements*
+*Planned future improvements*
 
 - Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
 
-## Prepare for DevOps
+## Prepare resources for DevOps
 
 Create new Azure Storage Account for temporary image
 
@@ -74,3 +74,4 @@ Create new Azure DevOps pipeline
 - create new Variable group in Library section with name jjpacker-DEV and add variable adminPassword
 - create new Variable group in Library section with name jjpacker-TEST and add variable adminPassword
 
+Run pipeline. You can test new deployment - change application source [index.html](packer/app/index.html) and commit changes. It will be deployed automatically.
