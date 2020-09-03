@@ -19,7 +19,7 @@ stages:
       steps:
       - task: PackerBuild@1
         displayName: 'Build immutable WVD image'
-        timeoutInMinutes: 20
+        timeoutInMinutes: 40
         inputs:
           ConnectedServiceName: $(subscription)
           managedImageName: 'jjvmimagevwd-$(Build.BuildNumber)'
@@ -29,4 +29,4 @@ stages:
           baseImage: 'MicrosoftWindowsDesktop:office-365:20h1-evd-o365pp:windows'
           packagePath: packer-wvd
           deployScriptPath: deploy.ps1
-          additionalBuilderParameters: '{"vm_size":"Standard_D2ds_v4"}'
+          additionalBuilderParameters: '{"vm_size":"Standard_B2ms"}'
