@@ -78,10 +78,15 @@ Run pipeline. You can test new deployment - change application source [index.htm
 This section help you how to build custom image for Windows Virtual Desktop automatically (with Packer).
 We will create new image of Windows 10 Enterprise multi-session with Microsoft 365 Apps.
 
-Following articles can help you
+Image customization
+
+- install VS Code
+- place file on Desktop with e.g. user's instructions
+
+Following articles can help you for some advanced scenarios
 
 - Default Packer templates - https://github.com/microsoft/azure-pipelines-tasks/tree/master/Tasks/PackerBuildV1/DefaultTemplates
-- Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
+- Image for Windows Virtual Desktop - https://github.com/TomHickling/WVD-CI-CD
 
 Repository structure
 
