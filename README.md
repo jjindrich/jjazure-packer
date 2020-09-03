@@ -21,10 +21,6 @@ Following articles can help you
 - [Implement continuous deployment of your app to an Azure Virtual Machine Scale Set](https://docs.microsoft.com/en-us/azure/devops/pipelines/apps/cd/azure/deploy-azure-scaleset?view=azure-devops)
 - [Azure virtual machine scale set from a Packer custom image by using Terraform](https://docs.microsoft.com/en-us/azure/developer/terraform/create-vm-scaleset-network-disks-using-packer-hcl)
 
-*Planned future improvements*
-
-- Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
-
 ## Prepare resources for DevOps
 
 Create new Azure Storage Account for temporary image
@@ -76,3 +72,18 @@ Create new Azure DevOps pipeline
 
 Run pipeline. You can test new deployment - change application source [index.html](packer/app/index.html) and commit changes. It will be deployed automatically.
 ![DevOps pipeline](media/devops.png)
+
+## Image for Windows Virtual Desktop
+
+This section help you how to build custom image for Windows Virtual Desktop automatically (with Packer).
+We will create new image of Windows 10 Enterprise multi-session with Microsoft 365 Apps.
+
+Following articles can help you
+
+- Default Packer templates - https://github.com/microsoft/azure-pipelines-tasks/tree/master/Tasks/PackerBuildV1/DefaultTemplates
+- Image for Windows Virtual Desktop - https://xenithit.blogspot.com/2020/03/how-to-deploy-windows-virtual-dekstop.html
+
+Repository structure
+
+- folder [packer WVD](packer-wvd) - deployment script for Packer Windows Virtual Desktop
+- pipeline definition in [azure-pipelines-wvd.yaml](azure-pipelines-wvd.yaml)

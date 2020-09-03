@@ -1,0 +1,30 @@
+name: $(date:yyyyMMdd)$(rev:.r)
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  subscriptionId: '82fb79bf-ee69-4a57-a76c-26153e544afe'
+  subscription: 'JJ Microsoft Azure Internal Consumption (82fb79bf-ee69-4a57-a76c-26153e544afe)'
+
+stages:
+  - stage: Build
+    displayName: Build
+    jobs:
+    - job: WvdImagePacker
+      displayName: WvdBuild image
+      steps:
+      - task: PackerBuild@1
+        displayName: 'Build immutable WVD image'
+        inputs:
+          ConnectedServiceName: $(subscription)
+          managedImageName: 'jjvmimagevwd-$(Build.BuildNumber)'
+          location: westeurope
+          storageAccountName: jjpackerstorage
+          azureResourceGroup: jjpacker-rg
+          baseImage: 'MicrosoftWindowsDesktop:office-365:20h1-evd-o365pp'
+          packagePath: packer-wvd
+          deployScriptPath: deploy.ps1
