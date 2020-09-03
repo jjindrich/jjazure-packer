@@ -28,3 +28,4 @@ stages:
           baseImage: 'MicrosoftWindowsDesktop:office-365:20h1-evd-o365pp:windows'
           packagePath: packer-wvd
           deployScriptPath: deploy.ps1
+          additionalBuilderParameters: '{"vm_size":"Standard_B2ms"}'
