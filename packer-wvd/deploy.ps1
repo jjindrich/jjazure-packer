@@ -1,4 +1,4 @@
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+#Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 Write-Host "JJ Starting script"
 
 #Create temp folder
@@ -14,6 +14,6 @@ Start-Sleep -Seconds 10
 
 #Place file on Desktop
 Write-Host "Modify Desktop"
-cp packer-wvd/welcome.txt c:\Users\Public\Desktop\welcome.txt
+Copy-Item -Path packer-wvd/welcome.txt -Destination c:\Users\Public\Desktop\welcome.txt
 
 Write-Host "JJ Finishing script"
