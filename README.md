@@ -23,7 +23,7 @@ Following articles can help you
 
 ## Prepare resources for DevOps
 
-Create new Azure Storage Account for temporary image
+Create new Azure Storage Account for temporary image (used for temporary VM)
 
 - resource group jjpacker-rg
 - storage account jjpackerstorage
@@ -32,6 +32,8 @@ Create new Azure Storage Account for temporary image
 az group create -n jjpacker-rg -l westeurope
 az storage account create -n jjpackerstorage -g jjpacker-rg -l westeurope --sku Standard_LRS --kind StorageV2
 ```
+
+For better performance use SKU Premium SSD storage account Premium_LRS.
 
 Images will be stored in this resource group.
 
