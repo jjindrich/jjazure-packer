@@ -15,7 +15,7 @@ stages:
     displayName: Build
     jobs:
     - job: WvdImagePacker
-      displayName: WvdBuild image
+      displayName: Build WVD image
       steps:
       - task: PackerBuild@1
         displayName: 'Build immutable WVD image'
@@ -25,6 +25,6 @@ stages:
           location: westeurope
           storageAccountName: jjpackerstorage
           azureResourceGroup: jjpacker-rg
-          baseImage: 'MicrosoftWindowsDesktop:office-365:20h1-evd-o365pp'
+          baseImage: 'MicrosoftWindowsDesktop:office-365:20h1-evd-o365pp:windows'
           packagePath: packer-wvd
           deployScriptPath: deploy.ps1
