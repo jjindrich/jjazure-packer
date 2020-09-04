@@ -75,7 +75,7 @@ Run pipeline. You can test new deployment - change application source [index.htm
 
 ## Image for Windows Virtual Desktop
 
-This section help you how to build custom image for Windows Virtual Desktop automatically (with Packer).
+This section help you how to build custom image for Windows Virtual Desktop (ARM release) automatically (with Packer).
 We will create new image of Windows 10 Enterprise multi-session with Microsoft 365 Apps.
 
 Image customization
@@ -92,3 +92,19 @@ Repository structure
 
 - folder [packer WVD](packer-wvd) - deployment script for Packer Windows Virtual Desktop
 - pipeline definition in [azure-pipelines-wvd.yaml](azure-pipelines-wvd.yaml)
+
+Next create new pipeline based on this pipeline definition in [Azure DevOps](https://dev.azure.com).
+
+![WVD DevOps](media/wvd-devops.png)
+
+After pipeline finished, start new Windows Virtual Desktop hostpool
+
+- select prepared image.
+- register desktop app group
+- assign application group to some users
+
+![Create WVD](media/wvd-create.png)
+
+Go to Windows Virtual Desktop application or [web](https://rdweb.wvd.microsoft.com/arm/webclient) and check workstation.
+
+![WVD desktop](media/wvd-desktop.png)
