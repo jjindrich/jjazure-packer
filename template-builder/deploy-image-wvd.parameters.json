@@ -6,7 +6,7 @@
             "value": "jjwvdimage"
         },
         "imageDefinitionName": {
-            "value": "jjwin10wvd"
+            "value": "jjwvdimagedef"
         },
         "imageTemplateName": {
             "value": "jjwvdimagetemplate"
@@ -21,7 +21,7 @@
             "value": "JJDevV2Network"
         },
         "imageBuilderVirtualNetworkSubnetName": {
-            "value": "DmzInfra"
+            "value": "DmzImages"
         },
         "imageBuilderUserIdentityResourceGroup": {
             "value": "JJDevV2-Infra"

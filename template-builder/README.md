@@ -33,7 +33,7 @@ New-AzRoleAssignment -ObjectId $idenityNamePrincipalId -RoleDefinitionName "Cont
 
 ## Deploy ARM template
 
-Template using existing virtual network to be able access network resources, check [docs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json#vnetconfig)
+Template using existing virtual network to be able access network resources, check [docs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json#vnetconfig). Subnet must have PrivateLinkService Network Policy disabled.
 
 Check you are using right image, you can check avaiblable images
 
