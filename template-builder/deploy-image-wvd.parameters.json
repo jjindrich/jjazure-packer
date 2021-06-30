@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageName": {
+            "value": "jjwvdimage"
+        },
+        "imageDefinitionName": {
+            "value": "jjwin10wvd"
+        },
+        "imageTemplateName": {
+            "value": "jjwvdimagetemplate"
+        },
+        "imageGalleryName": {
+            "value": "jjdevv2images"
+        },
+        "imageBuilderVirtualNetworkResourceGroup": {
+            "value": "JJDevV2-Infra"
+        },
+        "imageBuilderVirtualNetworkName": {
+            "value": "JJDevV2Network"
+        },
+        "imageBuilderVirtualNetworkSubnetName": {
+            "value": "DmzInfra"
+        },
+        "imageBuilderUserIdentityResourceGroup": {
+            "value": "JJDevV2-Infra"
+        },
+        "imageBuilderUserIdentityName": {
+            "value": "jjdevv2imagebuilder"
+        }
+    }
+}

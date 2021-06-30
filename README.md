@@ -3,6 +3,8 @@
 This repository describes how to bake custom image with your application and run this application. Application is simple webpage, source code is typically prepared in CI build process.
 For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
 
+**Another option is use Azure Image Builder with Azure Shared Image Gallery** to build image and publish images, check this [jjazure-packer-imagebuilder](template-builder).
+
 Repository structure
 
 - folder [packer](packer) - deployment script for Packer
