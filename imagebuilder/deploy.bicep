@@ -46,6 +46,13 @@ resource imgTemplateAvd 'Microsoft.VirtualMachineImages/imageTemplates@2022-02-1
     }
     customize:[
       {
+        type:'PowerShell'
+        name:'Install VS Code'
+        runAsSystem: true
+        runElevated: true
+        scriptUri: 'https://raw.githubusercontent.com/jjindrich/jjazure-packer/master/imagebuilder/install/vscode.ps1'
+      }
+      {
         type: 'WindowsUpdate'
         searchCriteria: 'IsInstalled=0'
         filters:[
