@@ -118,9 +118,6 @@ Go to Windows Virtual Desktop application or [web](https://rdweb.wvd.microsoft.c
 
 This section describes how create image using Azure Compute Gallery with Azure Image Builder task to build image and publish images.
 
-TODO: rewrite to bicep
-TODO: add Azure DevOps
-
 Related documentation Azure Image Builder
 
 - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/wvd/eslz-platform-automation-and-devops#create-azure-virtual-desktop-images
