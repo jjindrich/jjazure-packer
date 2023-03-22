@@ -131,6 +131,13 @@ How to integrate with Azure DevOps
 
 - https://github.com/Azure/azvmimagebuilder/tree/main/solutions/1_Azure_DevOps
 
+Run custom script
+
+- https://learn.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-virtual-desktop
+- https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json?tabs=json%2Cazure-powershell
+- https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-user-assigned-identity
+
+
 Repository structure
 
 - folder [imagebuilder](imagebuilder) - Bicep definition for resources
