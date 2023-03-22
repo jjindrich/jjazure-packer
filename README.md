@@ -170,3 +170,7 @@ Run this for deployment
 ```powershell
 deploy.ps1
 ```
+
+!!! VM Image template cannot be changed, you cannot change template definition. !!!
+
+Now you can create VM from your image - just click in portal.
