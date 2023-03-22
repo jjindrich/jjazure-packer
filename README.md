@@ -1,9 +1,8 @@
 # jjazure-packer
 
-This repository describes how to bake custom image with your application and run this application. Application is simple webpage, source code is typically prepared in CI build process.
-For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
+This repository describes how to bake custom image with your application and run this application. Application is simple webpage, source code is typically prepared in CI build process. For image baking using Packer Azure DevOps task. For deployment using Azure Resource Manager.
 
-**Another option is use Azure Image Builder with Azure Shared Image Gallery** to build image and publish images, check this [jjazure-packer-imagebuilder](template-builder).
+Another option is to use Azure Computer Gallery to bake image.
 
 ## Using Packer
 
@@ -115,15 +114,19 @@ Go to Windows Virtual Desktop application or [web](https://rdweb.wvd.microsoft.c
 
 ![WVD desktop](media/wvd-desktop.png)
 
-## Using Image Builder for Azure Virtual Desktop (AVD)
-This section describes how create image using Azure Image Builder with Azure Shared Image Gallery to build image and publish images.
+## Using Azure Computer Gallery for Azure Virtual Desktop (AVD)
+
+This section describes how create image using Azure Compute Gallery with Azure Image Builder task to build image and publish images.
 
 TODO: rewrite to bicep
 TODO: add Azure DevOps
 
 Related documentation Azure Image Builder
 
-- https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json
+- https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/wvd/eslz-platform-automation-and-devops#create-azure-virtual-desktop-images
+- https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-overview
+- https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-devops-task
+- https://github.com/marketplace/actions/build-azure-virtual-machine-image
 - https://docs.microsoft.com/en-us/azure/virtual-machines/windows/image-builder-virtual-desktop
 - https://github.com/Azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
 
@@ -133,38 +136,33 @@ How to integrate with Azure DevOps
 
 Repository structure
 
-- folder [imagebuilder](imagebuilder) - template for Azure image builder resource
+- folder [imagebuilder](imagebuilder) - Bicep definition for resources
 
-### Prepare for deployment
+### Prepare Managed Identity for deployment
 
-User Identity must be provided to access other Azure resources, check [docs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json#identity)
+User Identity must be provided to access other Azure resources, check [docs](https://learn.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-permissions-cli)
+
+For now we will use Contributor role on subcription level
 
 ```powershell
-'Az.ImageBuilder', 'Az.ManagedServiceIdentity' | ForEach-Object {Install-Module -Name $_ -AllowPrerelease}
-$rg = "JJDevV2-Infra"
-$idenityName = "jjdevv2imagebuilder"
-# create User Identity
-New-AzUserAssignedIdentity -ResourceGroupName $rg -Name $idenityName
-$idenityNameResourceId=$(Get-AzUserAssignedIdentity -ResourceGroupName $rg -Name $idenityName).Id
-$idenityNamePrincipalId=$(Get-AzUserAssignedIdentity -ResourceGroupName $rg -Name $idenityName).PrincipalId
-# assign permission Contributor
-New-AzRoleAssignment -ObjectId $idenityNamePrincipalId -RoleDefinitionName "Contributor" -ResourceGroupName $rg
+$rg="jjinfra-rg"
+$identityName="jjazidentity-imagebuilder"
+az identity create --resource-group $rg --name $identityName
+$subscriptionID=$(az account show --query id --output tsv)
+$identityID=$(az identity show -g $rg -n $identityName --query clientId -o tsv)
+az role assignment create --assignee $identityID --role Contributor --scope /subscriptions/$subscriptionID
 ```
 
-### Deploy ARM template
+### Deploy resources
 
-Template using existing virtual network to be able access network resources, check [docs](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/image-builder-json#vnetconfig). Subnet must have PrivateLinkService Network Policy disabled.
-
-Check you are using right image, you can check avaiblable images
+List of possible images for e.g. AVD
 
 ```powershell
-Get-AzVMImageSku -Location westeurope -PublisherName MicrosoftWindowsDesktop -Offer windows-10
+az vm image list --publisher MicrosoftWindowsDesktop -l WestEurope --architecture x64 -o table --all
 ```
 
-Run deployment
+Run this for deployment
 
 ```powershell
-$rg = "JJDevV2-Infra"
-az group create -n $rg -l westeurope
-az deployment group create -g $rg --template-file deploy-image-wvd.json --parameters deploy-image-wvd.parameters.json
+deploy.ps1
 ```
